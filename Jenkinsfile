@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'ludhianafactorythreads'
         CONTAINER_NAME = 'lft-jenkins'
+        DOCKERHUB_REPO = '12326280/ludhianafactorythreads'
     }
 
     stages {
@@ -42,6 +43,25 @@ pipeline {
                 '''
             }
         }
+
+        stage('Push to DockerHub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    bat '''
+                    echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                    docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:latest
+                    docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:build-%BUILD_NUMBER%
+                    docker push %DOCKERHUB_REPO%:latest
+                    docker push %DOCKERHUB_REPO%:build-%BUILD_NUMBER%
+                    docker logout
+                    '''
+                }
+            }
+        }
     }
 
     post {
@@ -49,10 +69,10 @@ pipeline {
             bat 'docker rm -f %CONTAINER_NAME% || exit /b 0'
         }
         success {
-            echo 'CI pipeline completed successfully.'
+            echo 'CI/CD pipeline completed successfully. Image pushed to DockerHub.'
         }
         failure {
-            echo 'CI pipeline failed. Check console output for exact stage and error.'
+            echo 'CI/CD pipeline failed. Check console output for exact stage and error.'
         }
     }
 }
