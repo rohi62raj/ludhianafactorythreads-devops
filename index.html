@@ -85,6 +85,7 @@
       <button class="nav-icon-btn" id="searchToggle" title="Search"><i class="fas fa-search"></i></button>
       <button class="nav-icon-btn" id="wishlistBtn" title="Wishlist"><i class="fas fa-heart"></i><span class="badge" id="wishlistCount">0</span></button>
       <button class="nav-icon-btn" id="cartBtn" title="Cart"><i class="fas fa-shopping-bag"></i><span class="badge" id="cartCount">0</span></button>
+      <button class="account-btn" id="authOpenBtn" title="Account"><i class="fas fa-user"></i><span id="authNavLabel">Login</span></button>
       <button class="theme-toggle" id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
       <button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </div>
@@ -856,6 +857,118 @@
   <div class="modal-content" id="modalContent"></div>
 </div>
 
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay" onclick="closeAuthModal()"></div>
+<div class="auth-modal" id="authModal" aria-hidden="true">
+  <button class="close-modal" onclick="closeAuthModal()" aria-label="Close login form"><i class="fas fa-times"></i></button>
+  <div class="auth-panel">
+    <div class="auth-brand">
+      <span class="auth-kicker">Secure retailer access</span>
+      <h2>Account Login</h2>
+      <p>Sign in to save orders, manage wholesale enquiries, and access admin tools after Firebase setup.</p>
+      <div class="auth-security-note"><i class="fas fa-shield-halved"></i> No passwords are stored in this static website.</div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" id="loginTab" onclick="switchAuthMode('login')" type="button">Login</button>
+        <button class="auth-tab" id="signupTab" onclick="switchAuthMode('signup')" type="button">Signup</button>
+      </div>
+
+      <form class="auth-form active" id="loginForm">
+        <label for="loginEmail">Email address</label>
+        <input type="email" id="loginEmail" placeholder="retailer@example.com" autocomplete="email" required />
+
+        <label for="loginPassword">Password</label>
+        <div class="password-field">
+          <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password" required />
+          <button type="button" onclick="togglePassword('loginPassword', this)" aria-label="Show password"><i class="fas fa-eye"></i></button>
+        </div>
+
+        <div class="auth-row">
+          <label class="remember-row"><input type="checkbox" id="rememberSession" checked /> Keep me signed in</label>
+          <button type="button" class="link-btn" onclick="showForgotPassword()">Forgot password?</button>
+        </div>
+
+        <button class="auth-submit" type="submit"><i class="fas fa-right-to-bracket"></i> Login</button>
+      </form>
+
+      <form class="auth-form" id="signupForm">
+        <label for="signupName">Full name</label>
+        <input type="text" id="signupName" placeholder="Retailer name" autocomplete="name" required />
+
+        <label for="signupEmail">Email address</label>
+        <input type="email" id="signupEmail" placeholder="retailer@example.com" autocomplete="email" required />
+
+        <label for="signupPassword">Password</label>
+        <div class="password-field">
+          <input type="password" id="signupPassword" placeholder="Minimum 6 characters" autocomplete="new-password" minlength="6" required />
+          <button type="button" onclick="togglePassword('signupPassword', this)" aria-label="Show password"><i class="fas fa-eye"></i></button>
+        </div>
+
+        <button class="auth-submit" type="submit"><i class="fas fa-user-plus"></i> Create Account</button>
+      </form>
+
+      <form class="auth-form" id="forgotForm">
+        <label for="forgotEmail">Registered email</label>
+        <input type="email" id="forgotEmail" placeholder="retailer@example.com" autocomplete="email" required />
+        <button class="auth-submit" type="submit"><i class="fas fa-paper-plane"></i> Send Reset Link</button>
+        <button type="button" class="link-btn back-login" onclick="switchAuthMode('login')">Back to login</button>
+      </form>
+
+      <div class="auth-status" id="authStatus" aria-live="polite"></div>
+
+      <div class="auth-profile" id="authProfile">
+        <div>
+          <span class="auth-profile-label">Signed in as</span>
+          <strong id="authUserEmail">retailer@example.com</strong>
+        </div>
+        <button type="button" class="admin-btn" id="adminAccessBtn" onclick="openAdminPanel()"><i class="fas fa-lock"></i> Admin</button>
+        <button type="button" class="logout-btn" onclick="logoutUser()"><i class="fas fa-arrow-right-from-bracket"></i> Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL MODAL -->
+<div class="admin-overlay" id="adminOverlay" onclick="closeAdminPanel()"></div>
+<div class="admin-modal" id="adminModal" aria-hidden="true">
+  <button class="close-modal" onclick="closeAdminPanel()" aria-label="Close admin panel"><i class="fas fa-times"></i></button>
+  <div class="admin-panel">
+    <div class="admin-header">
+      <span class="auth-kicker">Protected admin area</span>
+      <h2>Admin Dashboard</h2>
+      <p>Manage demo business metrics for wholesale orders and retailer enquiries.</p>
+    </div>
+    <div class="admin-grid">
+      <div class="admin-stat">
+        <i class="fas fa-users"></i>
+        <span>Retailer Accounts</span>
+        <strong>Firebase Auth</strong>
+      </div>
+      <div class="admin-stat">
+        <i class="fas fa-boxes-stacked"></i>
+        <span>Product Catalog</span>
+        <strong>17 Items</strong>
+      </div>
+      <div class="admin-stat">
+        <i class="fab fa-whatsapp"></i>
+        <span>Order Channel</span>
+        <strong>WhatsApp</strong>
+      </div>
+      <div class="admin-stat">
+        <i class="fas fa-shield-halved"></i>
+        <span>Access Control</span>
+        <strong>Email Based</strong>
+      </div>
+    </div>
+    <div class="admin-note">
+      <i class="fas fa-circle-info"></i>
+      <span>This demo panel opens only for the configured admin email. Production admin roles should be enforced with backend rules or custom claims.</span>
+    </div>
+  </div>
+</div>
+
 <!-- STICKY WHATSAPP BANNER -->
 <div class="sticky-wa-banner" id="stickyWaBanner">
   <span>Ready to Order? Chat with us on WhatsApp →</span>
@@ -886,6 +999,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="firebase-config.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

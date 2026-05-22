@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAOS(); initSwipers(); renderFeatured(); initCategoryFilters();
   initCalcDropdown(); setTimeout(() => renderProducts(), 600);
   updateCartUI(); updateWishlistCount(); renderRecentlyViewed();
-  initScrollEvents(); restoreTheme(); updateAllWaLinks();
+  initScrollEvents(); restoreTheme(); updateAllWaLinks(); initAuthUI();
 });
 
 function updateAllWaLinks() {
@@ -179,6 +179,209 @@ function closeModal(){
   document.getElementById('quickViewModal').classList.remove('active');
   document.getElementById('modalOverlay').classList.remove('active');
   document.body.style.overflow='';
+}
+
+// ---- FIREBASE AUTH ----
+let auth = null;
+let authReady = false;
+let currentAuthUser = null;
+const ADMIN_EMAILS = ['admin@ludhianafactorythreads.in'];
+
+function initAuthUI(){
+  const openBtn = document.getElementById('authOpenBtn');
+  const loginForm = document.getElementById('loginForm');
+  const signupForm = document.getElementById('signupForm');
+  const forgotForm = document.getElementById('forgotForm');
+
+  if(openBtn) openBtn.addEventListener('click', openAuthModal);
+  if(loginForm) loginForm.addEventListener('submit', handleLoginSubmit);
+  if(signupForm) signupForm.addEventListener('submit', handleSignupSubmit);
+  if(forgotForm) forgotForm.addEventListener('submit', handleForgotSubmit);
+
+  initFirebaseAuth();
+  updateAuthNav();
+}
+
+function initFirebaseAuth(){
+  if(!window.firebase || typeof firebaseConfig === 'undefined'){
+    setAuthStatus('Firebase SDK/config not loaded. Check internet and firebase-config.js.', 'error');
+    return;
+  }
+
+  try {
+    if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    auth.onAuthStateChanged(user => {
+      authReady = true;
+      currentAuthUser = user;
+      updateAuthNav();
+      if(user) setAuthStatus(`Signed in as ${user.email}`, 'success');
+    });
+  } catch (error) {
+    setAuthStatus(getAuthErrorMessage(error), 'error');
+  }
+}
+
+function openAuthModal(){
+  const modal = document.getElementById('authModal');
+  const overlay = document.getElementById('authOverlay');
+  if(!modal || !overlay) return;
+  modal.classList.add('active');
+  overlay.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  updateAuthNav();
+}
+
+function closeAuthModal(){
+  const modal = document.getElementById('authModal');
+  const overlay = document.getElementById('authOverlay');
+  if(!modal || !overlay) return;
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  clearAuthStatus();
+}
+
+function switchAuthMode(mode){
+  const forms = ['loginForm','signupForm','forgotForm'];
+  forms.forEach(id => document.getElementById(id)?.classList.remove('active'));
+  document.getElementById(`${mode}Form`)?.classList.add('active');
+  document.getElementById('loginTab')?.classList.toggle('active', mode === 'login');
+  document.getElementById('signupTab')?.classList.toggle('active', mode === 'signup');
+  clearAuthStatus();
+}
+
+function showForgotPassword(){
+  document.getElementById('loginForm')?.classList.remove('active');
+  document.getElementById('signupForm')?.classList.remove('active');
+  document.getElementById('forgotForm')?.classList.add('active');
+  document.getElementById('loginTab')?.classList.remove('active');
+  document.getElementById('signupTab')?.classList.remove('active');
+  clearAuthStatus();
+}
+
+function togglePassword(inputId, btn){
+  const input = document.getElementById(inputId);
+  if(!input) return;
+  input.type = input.type === 'password' ? 'text' : 'password';
+  btn.innerHTML = input.type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+}
+
+function handleLoginSubmit(event){
+  event.preventDefault();
+  if(!auth) return setAuthStatus('Firebase Authentication is not ready. Check SDK and config loading.', 'error');
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  if(!email || !password) return setAuthStatus('Enter email and password.', 'error');
+  setAuthStatus('Signing in...', 'success');
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => showToast('Login successful'))
+    .catch(error => setAuthStatus(getAuthErrorMessage(error), 'error'));
+}
+
+function handleSignupSubmit(event){
+  event.preventDefault();
+  if(!auth) return setAuthStatus('Firebase Authentication is not ready. Check SDK and config loading.', 'error');
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value;
+  if(!name || !email || password.length < 6) return setAuthStatus('Use a name, valid email, and password with at least 6 characters.', 'error');
+  setAuthStatus('Creating account...', 'success');
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(credential => credential.user.updateProfile({ displayName: name }))
+    .then(() => {
+      updateAuthNav();
+      showToast('Account created');
+      setAuthStatus('Account created successfully.', 'success');
+    })
+    .catch(error => setAuthStatus(getAuthErrorMessage(error), 'error'));
+}
+
+function handleForgotSubmit(event){
+  event.preventDefault();
+  if(!auth) return setAuthStatus('Firebase Authentication is not ready. Check SDK and config loading.', 'error');
+  const email = document.getElementById('forgotEmail').value.trim();
+  if(!email) return setAuthStatus('Enter your registered email.', 'error');
+  setAuthStatus('Sending reset link...', 'success');
+  auth.sendPasswordResetEmail(email)
+    .then(() => setAuthStatus('Password reset link sent. Check your email inbox.', 'success'))
+    .catch(error => setAuthStatus(getAuthErrorMessage(error), 'error'));
+}
+
+function logoutUser(){
+  if(!auth) return setAuthStatus('Firebase Authentication is not ready.', 'error');
+  auth.signOut()
+    .then(() => {
+      currentAuthUser = null;
+      updateAuthNav();
+      setAuthStatus('Logged out successfully.', 'success');
+      showToast('Logged out');
+    })
+    .catch(error => setAuthStatus(getAuthErrorMessage(error), 'error'));
+}
+
+function openAdminPanel(){
+  if(!currentAuthUser) return setAuthStatus('Please login before opening admin tools.', 'error');
+  if(!ADMIN_EMAILS.includes(currentAuthUser.email.toLowerCase())) return setAuthStatus('Access denied. This account is not registered as an admin.', 'error');
+  setAuthStatus('Admin access verified for this account.', 'success');
+  const adminModal = document.getElementById('adminModal');
+  const adminOverlay = document.getElementById('adminOverlay');
+  if(adminModal && adminOverlay){
+    adminModal.classList.add('active');
+    adminOverlay.classList.add('active');
+    adminModal.setAttribute('aria-hidden','false');
+  }
+}
+
+function closeAdminPanel(){
+  const adminModal = document.getElementById('adminModal');
+  const adminOverlay = document.getElementById('adminOverlay');
+  if(!adminModal || !adminOverlay) return;
+  adminModal.classList.remove('active');
+  adminOverlay.classList.remove('active');
+  adminModal.setAttribute('aria-hidden','true');
+}
+
+function updateAuthNav(){
+  const label = document.getElementById('authNavLabel');
+  const btn = document.getElementById('authOpenBtn');
+  const profile = document.getElementById('authProfile');
+  const emailEl = document.getElementById('authUserEmail');
+  if(label) label.textContent = currentAuthUser ? 'Account' : 'Login';
+  if(btn) btn.classList.toggle('signed-in', !!currentAuthUser);
+  if(profile) profile.classList.toggle('active', !!currentAuthUser);
+  if(emailEl && currentAuthUser) emailEl.textContent = currentAuthUser.email;
+}
+
+function setAuthStatus(message, type='success'){
+  const status = document.getElementById('authStatus');
+  if(!status) return;
+  status.textContent = message;
+  status.className = `auth-status ${type}`;
+}
+
+function clearAuthStatus(){
+  const status = document.getElementById('authStatus');
+  if(!status) return;
+  status.textContent = '';
+  status.className = 'auth-status';
+}
+
+function getAuthErrorMessage(error){
+  const messages = {
+    'auth/email-already-in-use': 'This email is already registered. Try login instead.',
+    'auth/invalid-email': 'Enter a valid email address.',
+    'auth/operation-not-allowed': 'Email/Password sign-in is not enabled in Firebase.',
+    'auth/weak-password': 'Password should be at least 6 characters.',
+    'auth/user-not-found': 'No account found with this email.',
+    'auth/wrong-password': 'Incorrect password.',
+    'auth/invalid-login-credentials': 'Invalid email or password.',
+    'auth/network-request-failed': 'Network error. Check internet connection and retry.'
+  };
+  return messages[error.code] || error.message || 'Authentication failed. Please try again.';
 }
 
 function requestDemo(id){
