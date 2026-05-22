@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ludhiana FactoryThreads — Wholesale Men's Clothing | Factory Direct Patna</title>
+  <meta name="description" content="Ludhiana FactoryThreads - Premium wholesale men's clothing from Ludhiana. MOQ 12 pcs. Best factory prices on jackets, shirts, jeans, hoodies & more. Delivery within Patna, Bihar." />
+  <meta property="og:title" content="Ludhiana FactoryThreads — Wholesale Men's Clothing" />
+  <meta property="og:description" content="Factory-direct wholesale men's clothing from Ludhiana. MOQ 12 pcs. Serving Patna, Bihar." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar" id="announcementBar">
+  <div class="announcement-inner">
+    <span>🎉 🎉 New Stock Arrived! MOQ 12 Pcs | Demo Piece in 24hrs | WhatsApp Now →</span>
+    <button class="close-announcement" onclick="document.getElementById('announcementBar').style.display='none'"><i class="fas fa-times"></i></button>
+  </div>
+</div>
+
+<!-- SCROLL PROGRESS BAR -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#" class="nav-logo">
+      <span class="logo-thok">Ludhiana</span><span class="logo-bazaar">FactoryThreads</span>
+      <span class="logo-tag">Factory Direct</span>
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <a href="#catalog" class="nav-link">Collections <i class="fas fa-chevron-down"></i></a>
+        <div class="mega-menu">
+          <div class="mega-col">
+            <h4>❄️ Winter</h4>
+            <a href="#catalog" onclick="filterBySeason('winter')">Jackets & Bombers</a>
+            <a href="#catalog" onclick="filterBySeason('winter')">Hoodies & Sweatshirts</a>
+            <a href="#catalog" onclick="filterBySeason('winter')">Thermal Innerwear</a>
+            <a href="#catalog" onclick="filterBySeason('winter')">Fleece & Pullovers</a>
+            <a href="#catalog" onclick="filterBySeason('winter')">Winter Formals</a>
+          </div>
+          <div class="mega-col">
+            <h4>☀️ Summer</h4>
+            <a href="#catalog" onclick="filterBySeason('summer')">Cotton Shirts</a>
+            <a href="#catalog" onclick="filterBySeason('summer')">Polo T-Shirts</a>
+            <a href="#catalog" onclick="filterBySeason('summer')">Shorts & Bermuda</a>
+            <a href="#catalog" onclick="filterBySeason('summer')">Linen Collection</a>
+            <a href="#catalog" onclick="filterBySeason('summer')">Kurta Sets</a>
+          </div>
+          <div class="mega-col">
+            <h4>🔁 All-Season</h4>
+            <a href="#catalog" onclick="filterBySeason('all-season')">Denim Jeans</a>
+            <a href="#catalog" onclick="filterBySeason('all-season')">Formal Trousers</a>
+            <a href="#catalog" onclick="filterBySeason('all-season')">Joggers & Tracks</a>
+            <a href="#catalog" onclick="filterBySeason('all-season')">Innerwear Sets</a>
+            <a href="#catalog" onclick="filterBySeason('all-season')">Caps & Accessories</a>
+          </div>
+          <div class="mega-col mega-promo">
+            <div class="mega-promo-box">
+              <span class="promo-label">🔥 Hot Deal</span>
+              <h3>5 Dozen+</h3>
+              <p>Get Extra <strong>10% OFF</strong></p>
+              <a href="#bulk" class="promo-btn">Know More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="#bulk" class="nav-link">Bulk Orders</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="searchToggle" title="Search"><i class="fas fa-search"></i></button>
+      <button class="nav-icon-btn" id="wishlistBtn" title="Wishlist"><i class="fas fa-heart"></i><span class="badge" id="wishlistCount">0</span></button>
+      <button class="nav-icon-btn" id="cartBtn" title="Cart"><i class="fas fa-shopping-bag"></i><span class="badge" id="cartCount">0</span></button>
+      <button class="theme-toggle" id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+      <button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar-wrapper" id="searchBarWrapper">
+    <div class="search-bar-inner">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search products, categories..." />
+      <button class="close-search" id="closeSearch"><i class="fas fa-times"></i></button>
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+  <div class="swiper hero-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide hero-slide slide-winter">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <span class="slide-tag">❄️ New Arrival</span>
+          <h1>Winter Collection<br/><span class="gold">2024–25</span></h1>
+          <p>Premium Jackets, Hoodies & Woolen Wear<br/>Direct from Ludhiana Mills</p>
+          <div class="slide-actions">
+            <a href="#catalog" class="btn-primary" onclick="filterBySeason('winter')">Shop Winter</a>
+            <a href="#how-it-works" class="btn-outline">How to Order</a>
+          </div>
+          <div class="slide-moq-badge">MOQ: 12 Pcs Only</div>
+        </div>
+      </div>
+      <div class="swiper-slide hero-slide slide-summer">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <span class="slide-tag">☀️ Summer Essentials</span>
+          <h1>Summer Ready<br/><span class="gold">Fresh Stock</span></h1>
+          <p>Cotton Shirts, Polos & Lightweight Wear<br/>Wholesale Prices, Factory Direct</p>
+          <div class="slide-actions">
+            <a href="#catalog" class="btn-primary" onclick="filterBySeason('summer')">Shop Summer</a>
+            <a href="#catalog" class="btn-outline">View All</a>
+          </div>
+          <div class="slide-moq-badge">MOQ: 12 Pcs Only</div>
+        </div>
+      </div>
+      <div class="swiper-slide hero-slide slide-bulk">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <span class="slide-tag">🏷️ Wholesale Special</span>
+          <h1>MOQ Just<br/><span class="gold">6 Pieces</span></h1>
+          <p>Best Wholesale Prices — Patna, Bihar<br/>500+ Products • Serving Patna & Surrounding Areas</p>
+          <div class="slide-actions">
+            <a href="#catalog" class="btn-primary">Browse Catalog</a>
+            <a href="https://wa.me/919877626809" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
+          </div>
+          <div class="slide-moq-badge">Free Shipping ₹5000+</div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>🎁 FREE DEMO PIECE — CHECK QUALITY FIRST</span>
+    <span class="dot">•</span>
+    <span>📦 MOQ ONLY 12 PCS</span>
+    <span class="dot">•</span>
+    <span>🏭 LUDHIANA DIRECT FACTORY</span>
+    <span class="dot">•</span>
+    <span>💰 WHOLESALE PRICES</span>
+    <span class="dot">•</span>
+    <span>📍 DELIVERY IN PATNA ONLY</span>
+    <span class="dot">•</span>
+    <span>⚡ 24-HR DEMO DELIVERY</span>
+    <span class="dot">•</span>
+    <span>📱 ORDER ON WHATSAPP</span>
+    <span class="dot">•</span>
+    <span>🎁 FREE DEMO PIECE — CHECK QUALITY FIRST</span>
+    <span class="dot">•</span>
+    <span>📦 MOQ ONLY 12 PCS</span>
+    <span class="dot">•</span>
+    <span>🏭 LUDHIANA DIRECT FACTORY</span>
+    <span class="dot">•</span>
+    <span>💰 WHOLESALE PRICES</span>
+    <span class="dot">•</span>
+    <span>📍 DELIVERY IN PATNA ONLY</span>
+    <span class="dot">•</span>
+    <span>⚡ 24-HR DEMO DELIVERY</span>
+    <span class="dot">•</span>
+    <span>📱 ORDER ON WHATSAPP</span>
+    <span class="dot">•</span>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="stats-container">
+    <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
+      <div class="stat-icon"><i class="fas fa-tshirt"></i></div>
+      <div class="stat-num counter" data-target="500">0</div>
+      <div class="stat-plus">+</div>
+      <div class="stat-label">Products</div>
+    </div>
+    <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+      <div class="stat-icon"><i class="fas fa-store"></i></div>
+      <div class="stat-num counter" data-target="1000">0</div>
+      <div class="stat-plus">+</div>
+      <div class="stat-label">Happy Retailers</div>
+    </div>
+    <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+      <div class="stat-icon"><i class="fas fa-clock"></i></div>
+      <div class="stat-num">24</div>
+      <div class="stat-plus">hr</div>
+      <div class="stat-label">Demo Delivery</div>
+    </div>
+    <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+      <div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <div class="stat-label-big">Patna</div>
+      <div class="stat-label">Bihar Only</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEASON TABS -->
+<section class="season-section" id="season">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2>Shop By Season</h2>
+      <p>Browse our curated wholesale collections season-by-season</p>
+    </div>
+    <div class="season-tabs" data-aos="fade-up" data-aos-delay="100">
+      <button class="season-tab active" data-season="all" onclick="filterBySeason('all')">
+        <span class="tab-icon">🛍️</span> All Products
+      </button>
+      <button class="season-tab" data-season="winter" onclick="filterBySeason('winter')">
+        <span class="tab-icon">❄️</span> Winter
+      </button>
+      <button class="season-tab" data-season="summer" onclick="filterBySeason('summer')">
+        <span class="tab-icon">☀️</span> Summer
+      </button>
+      <button class="season-tab" data-season="all-season" onclick="filterBySeason('all-season')">
+        <span class="tab-icon">🔁</span> All-Season
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured-section" id="featured">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">🔥 Hot Right Now</span>
+      <h2>Bestseller Products</h2>
+      <p>Most ordered by our 1000+ retailer network</p>
+    </div>
+    <div class="swiper featured-swiper" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper" id="featuredGrid"></div>
+      <div class="swiper-button-next featured-next"></div>
+      <div class="swiper-button-prev featured-prev"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL CATALOG -->
+<section class="catalog-section" id="catalog">
+  <div class="container-wide">
+    <div class="section-header" data-aos="fade-up">
+      <h2>Full Product Catalog</h2>
+      <p>500+ wholesale styles — filter by season, size, color & price</p>
+    </div>
+
+    <div class="catalog-layout">
+      <!-- FILTER SIDEBAR -->
+      <aside class="filter-sidebar" id="filterSidebar">
+        <div class="filter-header">
+          <h3><i class="fas fa-sliders-h"></i> Filters</h3>
+          <button class="clear-filters" onclick="clearAllFilters()">Clear All</button>
+        </div>
+
+        <div class="filter-group">
+          <h4>Season</h4>
+          <label class="filter-checkbox"><input type="checkbox" name="season" value="winter" onchange="applyFilters()"> ❄️ Winter</label>
+          <label class="filter-checkbox"><input type="checkbox" name="season" value="summer" onchange="applyFilters()"> ☀️ Summer</label>
+          <label class="filter-checkbox"><input type="checkbox" name="season" value="all-season" onchange="applyFilters()"> 🔁 All-Season</label>
+        </div>
+
+        <div class="filter-group">
+          <h4>Category</h4>
+          <div id="categoryFilters"></div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Size</h4>
+          <div class="size-filter-grid">
+            <button class="size-filter-btn" onclick="toggleSizeFilter(this, 'S')">S</button>
+            <button class="size-filter-btn" onclick="toggleSizeFilter(this, 'M')">M</button>
+            <button class="size-filter-btn" onclick="toggleSizeFilter(this, 'L')">L</button>
+            <button class="size-filter-btn" onclick="toggleSizeFilter(this, 'XL')">XL</button>
+            <button class="size-filter-btn" onclick="toggleSizeFilter(this, 'XXL')">XXL</button>
+            <button class="size-filter-btn" onclick="toggleSizeFilter(this, '3XL')">3XL</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Price Range</h4>
+          <div class="price-range-wrapper">
+            <input type="range" id="priceMin" min="100" max="5000" value="100" step="50" oninput="updatePriceRange()" />
+            <input type="range" id="priceMax" min="100" max="5000" value="5000" step="50" oninput="updatePriceRange()" />
+            <div class="price-labels">
+              <span>₹<span id="priceMinLabel">100</span></span>
+              <span>₹<span id="priceMaxLabel">5000</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Sort By</h4>
+          <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+            <option value="default">Default</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="newest">Newest First</option>
+            <option value="popularity">Popularity</option>
+          </select>
+        </div>
+
+        <!-- BULK CALCULATOR -->
+        <div class="bulk-calc-widget">
+          <h4>🔢 Bulk Calculator</h4>
+          <select id="calcProduct" onchange="calcUpdate()">
+            <option value="">Select Product</option>
+          </select>
+          <div class="calc-qty-row">
+            <label>Qty (pcs):</label>
+            <input type="number" id="calcQty" value="12" min="6" step="6" oninput="calcUpdate()" />
+          </div>
+          <div class="calc-result" id="calcResult"></div>
+        </div>
+      </aside>
+
+      <!-- PRODUCT GRID -->
+      <div class="catalog-main">
+        <div class="catalog-toolbar">
+          <span class="result-count" id="resultCount">Loading...</span>
+          <div class="toolbar-actions">
+            <button class="btn-sm" onclick="downloadCatalogue()"><i class="fas fa-download"></i> Download Catalogue</button>
+            <button class="filter-mobile-toggle" onclick="toggleMobileFilter()"><i class="fas fa-filter"></i> Filter</button>
+          </div>
+        </div>
+        <div class="products-grid" id="productsGrid">
+          <!-- Skeleton loaders -->
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+        <div class="load-more-wrapper">
+          <button class="btn-load-more" id="loadMoreBtn" onclick="loadMoreProducts()">Load More Products</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BULK ORDER BANNER -->
+<section class="bulk-banner" id="bulk" data-aos="fade-up">
+  <div class="bulk-banner-inner">
+    <div class="bulk-text">
+      <span class="bulk-tag">🏷️ Mega Wholesale Deal</span>
+      <h2>Order 5 Dozen+ ?<br/>Get Extra <span class="gold">10% OFF</span></h2>
+      <p>The more you order, the more you save. Best rates for large volume buyers.</p>
+      <div class="bulk-features">
+        <span>✓ Instant WhatsApp Quote</span>
+        <span>✓ Dedicated Account Manager</span>
+        <span>✓ Priority Dispatch</span>
+      </div>
+    </div>
+    <div class="bulk-cta">
+      <a href="https://wa.me/919877626809?text=Hi%2C%20I%20want%20to%20place%20a%20bulk%20order%20of%205%2B%20dozen%20pieces." target="_blank" class="btn-whatsapp-lg"><i class="fab fa-whatsapp"></i> WhatsApp for Quote</a>
+      <a href="tel:+919877626809" class="btn-call"><i class="fas fa-phone"></i> Call Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2>How It Works</h2>
+      <p>Order wholesale clothing in 4 simple steps</p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step" data-aos="fade-up" data-aos-delay="0">
+        <div class="step-num">01</div>
+        <div class="step-icon"><i class="fas fa-search"></i></div>
+        <h3>Browse Catalog</h3>
+        <p>Filter by season, category, size and price to find the perfect styles for your store.</p>
+      </div>
+      <div class="how-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="how-step" data-aos="fade-up" data-aos-delay="100">
+        <div class="step-num">02</div>
+        <div class="step-icon"><i class="fas fa-shopping-cart"></i></div>
+        <h3>Add to Cart</h3>
+        <p>Select sizes, colors and quantity (min 12 pcs per style). Your cart auto-builds the order.</p>
+      </div>
+      <div class="how-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="how-step" data-aos="fade-up" data-aos-delay="200">
+        <div class="step-num">03</div>
+        <div class="step-icon"><i class="fab fa-whatsapp"></i></div>
+        <h3>WhatsApp Order</h3>
+        <p>Click "Place Order via WhatsApp" — your full order details are sent automatically.</p>
+      </div>
+      <div class="how-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="how-step" data-aos="fade-up" data-aos-delay="300">
+        <div class="step-num">04</div>
+        <div class="step-icon"><i class="fas fa-box-open"></i></div>
+        <h3>Delivered!</h3>
+        <p>Payment confirmed, packed and dispatched within 24–48 hrs. Delivered within Patna in 1–2 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-section" data-aos="fade-up">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2>Why Choose Ludhiana FactoryThreads?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="0">
+        <div class="why-icon"><i class="fas fa-industry"></i></div>
+        <h3>Factory Prices</h3>
+        <p>Direct from Ludhiana mills — no middlemen, pure savings.</p>
+      </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="80">
+        <div class="why-icon"><i class="fas fa-truck-fast"></i></div>
+        <h3>Fast Delivery</h3>
+        <p>1–2 days delivery within Patna. Same-day dispatch for urgent orders.</p>
+      </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="160">
+        <div class="why-icon"><i class="fas fa-certificate"></i></div>
+        <h3>Genuine Quality</h3>
+        <p>Quality checked every batch. What you see is what you get.</p>
+      </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="240">
+        <div class="why-icon"><i class="fas fa-box"></i></div>
+        <h3>Low MOQ</h3>
+        <p>Start with just 12 pieces per style. No large capital blocked.</p>
+      </div>
+      <div class="why-card why-card-demo" data-aos="zoom-in" data-aos-delay="320">
+        <div class="why-icon why-icon-demo"><i class="fas fa-hand-holding-box"></i></div>
+        <h3>Demo Piece Available</h3>
+        <p>Get a single demo piece delivered to your door within 24 hrs — check quality before ordering bulk.</p>
+      </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="400">
+        <div class="why-icon"><i class="fas fa-rotate-left"></i></div>
+        <h3>Easy Returns</h3>
+        <p>Hassle-free return on manufacturing defects within 7 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENTLY VIEWED -->
+<section class="recently-viewed" id="recentlyViewed" style="display:none">
+  <div class="container">
+    <div class="section-header">
+      <h2>Recently Viewed</h2>
+    </div>
+    <div class="swiper recently-swiper">
+      <div class="swiper-wrapper" id="recentlyGrid"></div>
+      <div class="swiper-button-next recently-next"></div>
+      <div class="swiper-button-prev recently-prev"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO PRODUCT REQUEST SECTION -->
+<section class="demo-section" id="demo-request" data-aos="fade-up">
+  <div class="container">
+    <div class="demo-inner">
+      <div class="demo-badge-row">
+        <span class="demo-pill">⚡ Exclusive to Patna Retailers</span>
+      </div>
+      <div class="demo-grid">
+        <div class="demo-text">
+          <h2>Not Sure About Quality?<br/><span class="gold">Request a Demo Piece First.</span></h2>
+          <p class="demo-subtext">We understand you're investing your money. That's why every product in our catalog has a single demo piece available — delivered to your doorstep in <strong>Patna within 24 hours</strong>, so you can touch, feel and check the quality before placing your bulk order of 12+ pcs.</p>
+          <div class="demo-points">
+            <div class="demo-point"><span class="demo-check">✓</span><span>Any product, 1 demo piece per retailer</span></div>
+            <div class="demo-point"><span class="demo-check">✓</span><span>Door delivery within 24 hrs in Patna</span></div>
+            <div class="demo-point"><span class="demo-check">✓</span><span>Check fabric, stitching & sizing yourself</span></div>
+            <div class="demo-point"><span class="demo-check">✓</span><span>No obligation to bulk order after demo</span></div>
+          </div>
+          <a href="https://wa.me/919877626809?text=Hi%2C%20I%20want%20to%20request%20a%20demo%20piece.%20Please%20share%20available%20products%20for%20demo." target="_blank" class="btn-demo-main"><i class="fab fa-whatsapp"></i> Request Demo Piece Now</a>
+        </div>
+        <div class="demo-visual">
+          <div class="demo-card-mockup">
+            <div class="demo-mockup-top">
+              <span class="demo-mockup-tag">📦 Demo Request</span>
+            </div>
+            <div class="demo-steps-mini">
+              <div class="demo-step-mini">
+                <div class="dsm-num">1</div>
+                <div class="dsm-text"><strong>Pick a product</strong><span>Browse catalog, click "Demo"</span></div>
+              </div>
+              <div class="dsm-line"></div>
+              <div class="demo-step-mini">
+                <div class="dsm-num">2</div>
+                <div class="dsm-text"><strong>WhatsApp us</strong><span>Auto-message sent with product details</span></div>
+              </div>
+              <div class="dsm-line"></div>
+              <div class="demo-step-mini">
+                <div class="dsm-num">3</div>
+                <div class="dsm-text"><strong>Delivered in 24 hrs</strong><span>To your door in Patna</span></div>
+              </div>
+              <div class="dsm-line"></div>
+              <div class="demo-step-mini">
+                <div class="dsm-num">4</div>
+                <div class="dsm-text"><strong>Place bulk order</strong><span>Happy? Order 12+ pcs at wholesale price</span></div>
+              </div>
+            </div>
+            <div class="demo-mockup-footer">
+              <i class="fas fa-map-marker-alt"></i> Patna, Bihar only
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" data-aos="fade-up">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2>What Retailers Say</h2>
+      <p>1000+ happy retailers across India trust Ludhiana FactoryThreads</p>
+    </div>
+    <div class="swiper testimonials-swiper" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="testimonial-card">
+            <div class="testi-stars">★★★★★</div>
+            <p>"Best wholesale rates in market. Quality of hoodies and jackets is excellent. My customers love them. Delivery was fast too!"</p>
+            <div class="testi-author"><div class="testi-avatar">RK</div><div><strong>Rajesh Kumar</strong><span>Retailer, Delhi</span></div></div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-card">
+            <div class="testi-stars">★★★★★</div>
+            <p>"MOQ of 6 pieces is perfect for small retailers like me. I can test styles before ordering more. Ludhiana FactoryThreads is my go-to supplier."</p>
+            <div class="testi-author"><div class="testi-avatar">SP</div><div><strong>Suresh Patel</strong><span>Boutique Owner, Surat</span></div></div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-card">
+            <div class="testi-stars">★★★★☆</div>
+            <p>"WhatsApp ordering is super convenient. I just send the cart message and within 24 hours my order is confirmed. Highly recommend!"</p>
+            <div class="testi-author"><div class="testi-avatar">AM</div><div><strong>Anwar Mohammed</strong><span>Reseller, Mumbai</span></div></div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-card">
+            <div class="testi-stars">★★★★★</div>
+            <p>"Ordered 10 dozen shirts and jackets for my shop. Margin is much better than local market. Will definitely reorder every season."</p>
+            <div class="testi-author"><div class="testi-avatar">VR</div><div><strong>Vikram Rathi</strong><span>Shop Owner, Jaipur</span></div></div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-card">
+            <div class="testi-stars">★★★★★</div>
+            <p>"Packaging is very good and products match exactly what is shown. The demo piece service is really helpful — I checked the quality before ordering bulk!"</p>
+            <div class="testi-author"><div class="testi-avatar">PD</div><div><strong>Priya Devi</strong><span>Online Reseller, Patna</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination testimonial-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SIZE GUIDE -->
+<section class="size-guide-section" id="size-guide" data-aos="fade-up">
+  <div class="container">
+    <div class="section-header">
+      <h2>Men's Size Guide</h2>
+      <p>All measurements in inches / cm (approximate)</p>
+    </div>
+    <div class="table-wrapper" data-aos="fade-up" data-aos-delay="100">
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th>Chest (in)</th>
+            <th>Chest (cm)</th>
+            <th>Waist (in)</th>
+            <th>Waist (cm)</th>
+            <th>Shoulder (in)</th>
+            <th>Length (in)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>S</strong></td><td>36–37</td><td>91–94</td><td>30–31</td><td>76–79</td><td>17</td><td>27</td></tr>
+          <tr><td><strong>M</strong></td><td>38–39</td><td>96–99</td><td>32–33</td><td>81–84</td><td>17.5</td><td>27.5</td></tr>
+          <tr><td><strong>L</strong></td><td>40–41</td><td>101–104</td><td>34–35</td><td>86–89</td><td>18</td><td>28</td></tr>
+          <tr><td><strong>XL</strong></td><td>42–43</td><td>106–109</td><td>36–37</td><td>91–94</td><td>18.5</td><td>28.5</td></tr>
+          <tr><td><strong>XXL</strong></td><td>44–45</td><td>111–114</td><td>38–39</td><td>96–99</td><td>19</td><td>29</td></tr>
+          <tr><td><strong>3XL</strong></td><td>46–47</td><td>116–119</td><td>40–41</td><td>101–104</td><td>19.5</td><td>29.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY & POLICY -->
+<section class="policy-section" id="policy" data-aos="fade-up">
+  <div class="container">
+    <div class="policy-grid">
+      <div class="policy-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="policy-icon"><i class="fas fa-boxes-stacked"></i></div>
+        <h3>MOQ Policy</h3>
+        <ul>
+          <li>Minimum 12 pieces per style per color</li>
+          <li>Mix sizes within same style allowed</li>
+          <li>No minimum on total order value</li>
+          <li>Wholesale pricing on all orders</li>
+        </ul>
+      </div>
+      <div class="policy-card policy-card-demo" data-aos="fade-up" data-aos-delay="100">
+        <div class="policy-icon" style="color:var(--gold)"><i class="fas fa-hand-holding-box"></i></div>
+        <h3>🎁 Demo Piece Policy</h3>
+        <ul>
+          <li>1 demo piece per product available</li>
+          <li>Delivered to your door within 24 hrs</li>
+          <li>Only within Patna city limits</li>
+          <li>Check quality before bulk ordering</li>
+        </ul>
+      </div>
+      <div class="policy-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="policy-icon"><i class="fas fa-truck"></i></div>
+        <h3>Delivery Info</h3>
+        <ul>
+          <li>Delivery within Patna, Bihar only</li>
+          <li>1–2 days for bulk orders</li>
+          <li>24 hrs for demo piece requests</li>
+          <li>Dispatched from Patna warehouse</li>
+        </ul>
+      </div>
+      <div class="policy-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="policy-icon"><i class="fas fa-credit-card"></i></div>
+        <h3>Payment</h3>
+        <ul>
+          <li>100% advance for new buyers</li>
+          <li>UPI / NEFT / Bank Transfer</li>
+          <li>Cash on delivery for regulars</li>
+          <li>Credit terms for trusted buyers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GST & TRUST SECTION -->
+<section class="trust-section" data-aos="fade-up">
+  <div class="container">
+    <div class="trust-badges">
+      <div class="trust-badge trust-badge-demo">
+        <i class="fas fa-hand-holding-box" style="color:var(--gold)"></i>
+        <div>
+          <strong>Demo Piece Service</strong>
+          <span>Single piece delivered in 24 hrs</span>
+        </div>
+      </div>
+      <div class="trust-badge">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <strong>Patna, Bihar Only</strong>
+          <span>Delivery within Patna city</span>
+        </div>
+      </div>
+      <div class="trust-badge">
+        <i class="fas fa-shield-halved"></i>
+        <div>
+          <strong>100% Genuine</strong>
+          <span>Verified Wholesaler</span>
+        </div>
+      </div>
+      <div class="trust-badge">
+        <i class="fas fa-industry"></i>
+        <div>
+          <strong>Factory to Retailer</strong>
+          <span>No Middleman</span>
+        </div>
+      </div>
+      <div class="trust-badge">
+        <i class="fas fa-users"></i>
+        <div>
+          <strong>1000+ Retailers</strong>
+          <span>Trusted in Patna</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER TRACKER -->
+<section class="tracker-section" data-aos="fade-up">
+  <div class="container">
+    <div class="tracker-box">
+      <div class="tracker-text">
+        <h3>📦 Track Your Order</h3>
+        <p>Enter your order ID or contact us directly on WhatsApp for real-time updates.</p>
+      </div>
+      <div class="tracker-form">
+        <input type="text" placeholder="Enter Order ID (e.g. TB-20241205)" id="trackInput" />
+        <button onclick="trackOrder()"><i class="fas fa-search"></i> Track Order</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section" data-aos="fade-up">
+  <div class="container">
+    <div class="newsletter-box">
+      <div class="newsletter-text">
+        <h2>Get Wholesale Deals First</h2>
+        <p>New arrivals, seasonal collections & exclusive bulk discounts in your inbox.</p>
+      </div>
+      <div class="newsletter-form">
+        <input type="email" id="newsletterEmail" placeholder="Your email address" />
+        <button onclick="subscribeNewsletter()"><i class="fas fa-paper-plane"></i> Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOYALTY TIERS -->
+<section class="loyalty-section" data-aos="fade-up">
+  <div class="container">
+    <div class="section-header">
+      <h2>Retailer Loyalty Program</h2>
+      <p>The more you order, the more you unlock</p>
+    </div>
+    <div class="loyalty-grid">
+      <div class="loyalty-card bronze">
+        <div class="loyalty-icon">🥉</div>
+        <h3>Bronze</h3>
+        <p>0–50 Dozen</p>
+        <ul><li>Standard prices</li><li>1–2 day delivery</li><li>WhatsApp support</li></ul>
+      </div>
+      <div class="loyalty-card silver">
+        <div class="loyalty-icon">🥈</div>
+        <h3>Silver</h3>
+        <p>50–200 Dozen</p>
+        <ul><li>5% extra discount</li><li>Same-day dispatch</li><li>Priority support</li></ul>
+      </div>
+      <div class="loyalty-card gold">
+        <div class="loyalty-icon">🥇</div>
+        <h3>Gold</h3>
+        <p>200+ Dozen</p>
+        <ul><li>10% extra discount</li><li>Free demo pieces</li><li>Dedicated manager</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="footer-top">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><span class="logo-thok">Ludhiana</span><span class="logo-bazaar">FactoryThreads</span></div>
+        <p>Patna's trusted wholesale men's clothing platform. Factory-direct prices from Ludhiana, serving Patna & Bihar.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="footer-trust">
+          <span class="gst-badge">📍 Serving Patna, Bihar</span>
+          <span class="udyam-badge">🏭 Sourced from Ludhiana</span>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#catalog">All Products</a>
+        <a href="#bulk">Bulk Orders</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#size-guide">Size Guide</a>
+        <a href="#policy">Policies</a>
+      </div>
+
+      <div class="footer-links">
+        <h4>Categories</h4>
+        <a href="#catalog" onclick="filterBySeason('winter')">Winter Collection</a>
+        <a href="#catalog" onclick="filterBySeason('summer')">Summer Collection</a>
+        <a href="#catalog" onclick="filterBySeason('all-season')">All-Season</a>
+        <a href="#catalog">Denim & Jeans</a>
+        <a href="#catalog">Innerwear</a>
+        <a href="#catalog">Formals</a>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Patna, Bihar — 800001<br/>Sourced from Ludhiana, Punjab</span></div>
+        <div class="contact-item"><i class="fab fa-whatsapp"></i><a href="https://wa.me/919877626809">+91 XXXXXXXXXX</a></div>
+        <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:info@ludhianafactorythreads.in">info@ludhianafactorythreads.in</a></div>
+        <div class="contact-item"><i class="fas fa-clock"></i><span>Mon–Sat: 9 AM – 7 PM</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 ludhianafactorythreads.in — All Rights Reserved | Wholesale Men's Clothing India</p>
+    <p>Factory Direct | No Middlemen | Serving Patna, Bihar</p>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3><i class="fas fa-shopping-bag"></i> Your Cart</h3>
+    <button class="close-cart" onclick="closeCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="empty-cart">
+      <i class="fas fa-shopping-bag"></i>
+      <p>Your cart is empty</p>
+      <small>Add products with MOQ 12 pcs minimum</small>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="coupon-row">
+      <input type="text" id="couponInput" placeholder="Promo code (try BULK10)" />
+      <button onclick="applyCoupon()">Apply</button>
+    </div>
+    <div class="order-summary">
+      <div class="summary-row"><span>Total Items:</span><span id="summaryItems">0 pcs</span></div>
+      <div class="summary-row"><span>Subtotal:</span><span id="summarySubtotal">₹0</span></div>
+      <div class="summary-row discount-row" id="discountRow" style="display:none"><span>Discount (10%):</span><span id="summaryDiscount">-₹0</span></div>
+      <div class="summary-row grand"><span>Grand Total:</span><span id="summaryTotal">₹0</span></div>
+      <div class="delivery-note"><i class="fas fa-truck"></i> Est. delivery: 1–2 days within Patna</div>
+    </div>
+    <button class="btn-clear-cart" onclick="clearCart()"><i class="fas fa-trash"></i> Clear Cart</button>
+    <button class="btn-whatsapp-order" onclick="placeOrderWhatsApp()"><i class="fab fa-whatsapp"></i> Place Order via WhatsApp</button>
+  </div>
+</div>
+
+<!-- QUICK VIEW MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+<div class="quick-view-modal" id="quickViewModal">
+  <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
+  <div class="modal-content" id="modalContent"></div>
+</div>
+
+<!-- STICKY WHATSAPP BANNER -->
+<div class="sticky-wa-banner" id="stickyWaBanner">
+  <span>Ready to Order? Chat with us on WhatsApp →</span>
+  <a href="https://wa.me/919877626809" target="_blank" class="sticky-wa-btn"><i class="fab fa-whatsapp"></i> Chat Now</a>
+  <button class="sticky-close" onclick="document.getElementById('stickyWaBanner').style.display='none'"><i class="fas fa-times"></i></button>
+</div>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/919877626809" target="_blank" class="floating-wa" title="Order on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-tooltip">Order on WhatsApp</span>
+</a>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-toggle" id="langToggle">
+  <button onclick="toggleLang('en')" class="lang-btn active" id="btnEn">EN</button>
+  <button onclick="toggleLang('hi')" class="lang-btn" id="btnHi">हि</button>
+</div>
+
+<!-- PRINT STYLES HIDDEN CONTENT -->
+<div id="printCatalogue" style="display:none"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
