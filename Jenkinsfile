@@ -44,12 +44,26 @@ pipeline {
             }
         }
 
-      stage('Push to DockerHub') {
+     stage('Push to DockerHub') {
     steps {
-        bat 'docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:latest'
-        bat 'docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:build-%BUILD_NUMBER%'
-        bat 'docker push %DOCKERHUB_REPO%:latest'
-        bat 'docker push %DOCKERHUB_REPO%:build-%BUILD_NUMBER%'
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-credentials',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+
+            bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+
+            bat 'docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:latest'
+
+            bat 'docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:build-%BUILD_NUMBER%'
+
+            bat 'docker push %DOCKERHUB_REPO%:latest'
+
+            bat 'docker push %DOCKERHUB_REPO%:build-%BUILD_NUMBER%'
+
+            bat 'docker logout'
+        }
     }
 }
     }
