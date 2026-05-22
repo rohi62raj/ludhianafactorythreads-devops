@@ -51,14 +51,15 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    bat '''
-                    echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
-                    docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:latest
-                    docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:build-%BUILD_NUMBER%
-                    docker push %DOCKERHUB_REPO%:latest
-                    docker push %DOCKERHUB_REPO%:build-%BUILD_NUMBER%
-                    docker logout
+                    powershell '''
+                        $env:DOCKER_PASS | docker login -u $env:DOCKER_USER --password-stdin
+                        if ($LASTEXITCODE -ne 0) { exit 1 }
                     '''
+                    bat 'docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:latest'
+                    bat 'docker tag %IMAGE_NAME%:jenkins-%BUILD_NUMBER% %DOCKERHUB_REPO%:build-%BUILD_NUMBER%'
+                    bat 'docker push %DOCKERHUB_REPO%:latest'
+                    bat 'docker push %DOCKERHUB_REPO%:build-%BUILD_NUMBER%'
+                    bat 'docker logout'
                 }
             }
         }
