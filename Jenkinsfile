@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'ludhianafactorythreads'
-        IMAGE_TAG = 'jenkins-${BUILD_NUMBER}'
         CONTAINER_NAME = 'lft-jenkins'
     }
 
@@ -28,7 +27,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
+                bat 'docker build -t %IMAGE_NAME%:jenkins-%BUILD_NUMBER% .'
             }
         }
 
@@ -36,7 +35,7 @@ pipeline {
             steps {
                 bat '''
                 docker rm -f %CONTAINER_NAME% || exit /b 0
-                docker run -d --name %CONTAINER_NAME% -p 8090:80 %IMAGE_NAME%:%IMAGE_TAG%
+                docker run -d --name %CONTAINER_NAME% -p 8090:80 %IMAGE_NAME%:jenkins-%BUILD_NUMBER%
                 powershell -Command "Start-Sleep -Seconds 5; $response = Invoke-WebRequest -Uri http://localhost:8090 -UseBasicParsing; if ($response.StatusCode -ne 200) { exit 1 }"
                 docker logs %CONTAINER_NAME%
                 docker rm -f %CONTAINER_NAME%
